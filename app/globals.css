@@ -1,0 +1,173 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+/* Ogg Font - Display Serif */
+@font-face {
+  font-family: 'Ogg';
+  src: url('https://fonts.cdnfonts.com/s/15363/Ogg-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Sapphire Life Club - Bright Coastal Luxury Palette */
+  --background: #FFFFFF;
+  --foreground: #1A3A5C;
+  --card: #FFFFFF;
+  --card-foreground: #1A3A5C;
+  --popover: #FFFFFF;
+  --popover-foreground: #1A3A5C;
+  --primary: #00AEB6;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F8FAFB;
+  --secondary-foreground: #1A3A5C;
+  --muted: #F5F8FA;
+  --muted-foreground: #6B8299;
+  --accent: #37BBD2;
+  --accent-foreground: #FFFFFF;
+  --destructive: #DC2626;
+  --destructive-foreground: #FFFFFF;
+  --border: #E5EEF2;
+  --input: #E5EEF2;
+  --ring: #00AEB6;
+  --radius: 0rem;
+  
+  /* Layout tokens */
+  --header-height: 56px;
+  
+  /* Custom brand tokens - Bright Coastal */
+  --sapphire: #1A3A5C;
+  --aqua: #00AEB6;
+  --aqua-secondary: #37BBD2;
+  --aqua-light: #E8F7F9;
+  --aqua-pale: #F0FBFC;
+  --white: #FFFFFF;
+  --off-white: #FAFCFD;
+  --pale-gray: #F5F8FA;
+  --warm-sand: #FAF8F5;
+}
+
+@theme inline {
+  --font-sans: var(--font-poppins), 'Poppins', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-cormorant), 'Cormorant Garamond', ui-serif, Georgia, serif;
+  --font-display: 'Ogg', 'Cormorant Garamond', ui-serif, Georgia, serif;
+  --font-signature: var(--font-dancing), 'Dancing Script', cursive;
+  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  
+  /* Custom brand colors */
+  --color-sapphire: var(--sapphire);
+  --color-aqua: var(--aqua);
+  --color-aqua-secondary: var(--aqua-secondary);
+  --color-aqua-light: var(--aqua-light);
+  --color-aqua-pale: var(--aqua-pale);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Custom animations */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slow-zoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes draw-line {
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 1s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 1.2s ease-out forwards;
+}
+
+.animate-slow-zoom {
+  animation: slow-zoom 20s ease-out forwards;
+}
+
+.animate-draw-line {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: draw-line 2s ease-out forwards;
+}
+
+/* Partners Marquee Animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
