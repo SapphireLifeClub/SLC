@@ -160,9 +160,14 @@ export function Footer() {
             >
               APPLY FOR MEMBERSHIP
             </Link>
-            <span className="font-sans text-[12px] md:text-[13px] font-medium tracking-[0.3em] uppercase text-white">
+            <a
+              href="https://www.instagram.com/sapphirelifeclub?utm_source=qr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-sans text-[12px] md:text-[13px] font-medium tracking-[0.3em] uppercase text-white hover:text-white/70 transition-colors duration-300"
+            >
               INSTAGRAM
-            </span>
+            </a>
           </div>
 
           {/* Contact Line */}
