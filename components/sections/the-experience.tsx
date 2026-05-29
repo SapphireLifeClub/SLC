@@ -103,10 +103,10 @@ function ExperienceModule({ experience }: { experience: typeof experiences[0] })
   return (
     <div
       ref={moduleRef}
-      className="relative w-full h-[100svh]"
+      className="relative w-full lg:h-[100svh] flex flex-col lg:block"
     >
-      {/* Full-Bleed Background - Video or Image */}
-      <div className="absolute inset-0">
+      {/* Media — natural-aspect on mobile/tablet, full-bleed on desktop */}
+      <div className="relative w-full aspect-[16/10] lg:aspect-auto lg:absolute lg:inset-0 lg:h-full">
         {experience.video ? (
           <video
             autoPlay
@@ -127,18 +127,41 @@ function ExperienceModule({ experience }: { experience: typeof experiences[0] })
             style={{ objectPosition: experience.objectPosition }}
           />
         )}
-        {/* Subtle bottom gradient only - keeps media bright */}
-        <div 
-          className="absolute bottom-0 left-0 right-0 h-[35%]"
+        {/* Desktop-only bottom gradient for text legibility */}
+        <div
+          className="hidden lg:block absolute bottom-0 left-0 right-0 h-[35%]"
           style={{
-            background: 'linear-gradient(to top, rgba(26, 58, 92, 0.5) 0%, rgba(26, 58, 92, 0.2) 50%, transparent 100%)'
+            background:
+              'linear-gradient(to top, rgba(26, 58, 92, 0.5) 0%, rgba(26, 58, 92, 0.2) 50%, transparent 100%)',
           }}
         />
       </div>
 
-      {/* Bottom-Center Text Content - Centered, minimal, luxury */}
-      <div 
-        className={`absolute left-1/2 -translate-x-1/2 z-20 text-center transition-all duration-[1s] ease-out ${
+      {/* Mobile text — below image, dark on white */}
+      <div
+        className={`lg:hidden px-6 py-10 text-center transition-all duration-[700ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+        }`}
+      >
+        {experience.subtitle && (
+          <p className="font-sans text-[10px] font-bold uppercase tracking-[0.3em] text-[#00AEB6] mb-3">
+            {experience.subtitle}
+          </p>
+        )}
+        <h3
+          style={{
+            fontFamily: "'Ogg', 'Cormorant Garamond', Georgia, serif",
+            fontWeight: 300,
+          }}
+          className="text-[26px] sm:text-[32px] tracking-[0.03em] uppercase leading-[1.15] text-[#192952]"
+        >
+          {experience.title}
+        </h3>
+      </div>
+
+      {/* Desktop text — overlaid at bottom of image */}
+      <div
+        className={`hidden lg:block absolute left-1/2 -translate-x-1/2 z-20 text-center transition-all duration-[1s] ease-out ${
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         }`}
         style={{
@@ -146,24 +169,21 @@ function ExperienceModule({ experience }: { experience: typeof experiences[0] })
           width: '96%',
         }}
       >
-        {/* Subtitle - Centered, Poppins Bold, subtle */}
         {experience.subtitle && (
-          <p 
-            className="font-sans text-[10px] md:text-[11px] lg:text-[12px] font-bold text-white/85 uppercase tracking-[0.2em] mb-3 md:mb-4"
+          <p
+            className="font-sans text-[11px] lg:text-[12px] font-bold text-white/85 uppercase tracking-[0.2em] mb-4"
             style={{ textShadow: '0 1px 4px rgba(0,0,0,0.3)' }}
           >
             {experience.subtitle}
           </p>
         )}
-        
-        {/* Title - Ogg Thin, centered, 25% larger scale, single line on desktop */}
-        <h3 
-          style={{ 
+        <h3
+          style={{
             fontFamily: "'Ogg', 'Cormorant Garamond', Georgia, serif",
             fontWeight: 100,
-            textShadow: '0 2px 8px rgba(0,0,0,0.25)'
+            textShadow: '0 2px 8px rgba(0,0,0,0.25)',
           }}
-          className="text-[25px] sm:text-[30px] md:text-[52px] lg:text-[70px] xl:text-[80px] text-white tracking-[0.03em] sm:tracking-[0.04em] uppercase leading-[1.15] sm:leading-[1.05] lg:whitespace-nowrap"
+          className="text-[52px] lg:text-[70px] xl:text-[80px] text-white tracking-[0.04em] uppercase leading-[1.05] lg:whitespace-nowrap"
         >
           {experience.title}
         </h3>
