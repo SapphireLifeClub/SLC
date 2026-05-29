@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { isBackForwardNavigation } from "@/lib/navigation"
 
 const experiences = [
   {
@@ -13,6 +14,13 @@ const experiences = [
   },
   {
     number: "02",
+    title: "CREATIVE BUSINESS INITIATIVES",
+    subtitle: "Ideas exchanged. Partnerships formed.",
+    image: "/creative-business.png",
+    objectPosition: "center center",
+  },
+  {
+    number: "03",
     title: "EXECUTIVE HOSPITALITY",
     subtitle: "A refined private environment.",
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Saphire%20Life%20-%20%20Lorenzo%20Guerra%20023%28JB_19332%29-OgHDFspxku9bI8avjqeqltsol6IAds.jpg",
@@ -20,32 +28,25 @@ const experiences = [
     objectPosition: "center center",
   },
   {
-    number: "03",
-    title: "CREATIVE BUSINESS INITIATIVES",
-    subtitle: "Ideas exchanged. Partnerships formed.",
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Saphire%20Life%20-%20%20Lorenzo%20Guerra%20028%28JB_19384%29-C5XnJtWmNWvmDyMC87hXlMRE7y5lPA.jpg",
-    objectPosition: "center 35%",
-  },
-  {
     number: "04",
     title: "PHILANTHROPY & COMMUNITY",
     subtitle: "Meaningful engagement.",
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Saphire%20Life%20-%20%20Lorenzo%20Guerra%20112%28JB_10269%29-9TUcth5vYoFnj5K8VMaazlN58So0kn.jpg",
-    objectPosition: "center center",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Saphire%20Life%20-%20%20Lorenzo%20Guerra%20028%28JB_19384%29-C5XnJtWmNWvmDyMC87hXlMRE7y5lPA.jpg",
+    objectPosition: "center 35%",
   },
   {
     number: "—",
     title: "ON THE WATER",
     subtitle: "A protected harbor of warm currents.",
-    image: "/harbor-aerial.jpeg",
+    image: "/on-the-water.png",
     objectPosition: "center center",
   },
   {
     number: "05",
     title: "SEASONAL MEMBER GATHERINGS",
     subtitle: "Curated experiences and traditions.",
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Saphire%20Life%20-%20%20Lorenzo%20Guerra%20005%28JB_19098%29-8qmBdRuRzqzLhZ1lNwnjpSDNpk0mPE.jpg",
-    objectPosition: "center 35%",
+    image: "/seasonal-gatherings.jpeg",
+    objectPosition: "center center",
   },
   {
     number: "—",
@@ -64,10 +65,22 @@ const experiences = [
 ]
 
 function ExperienceModule({ experience }: { experience: typeof experiences[0] }) {
-  const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(() => isBackForwardNavigation())
   const moduleRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    const el = moduleRef.current
+    if (!el) return
+    const checkInView = () => {
+      const rect = el.getBoundingClientRect()
+      const vh = window.innerHeight || document.documentElement.clientHeight
+      if (rect.top < vh && rect.bottom > 0) {
+        setIsVisible(true)
+        return true
+      }
+      return false
+    }
+    if (checkInView()) return
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -76,12 +89,15 @@ function ExperienceModule({ experience }: { experience: typeof experiences[0] })
       },
       { threshold: 0.2 }
     )
-
-    if (moduleRef.current) {
-      observer.observe(moduleRef.current)
+    observer.observe(el)
+    const onPageShow = (e: PageTransitionEvent) => {
+      if (e.persisted) checkInView()
     }
-
-    return () => observer.disconnect()
+    window.addEventListener("pageshow", onPageShow)
+    return () => {
+      observer.disconnect()
+      window.removeEventListener("pageshow", onPageShow)
+    }
   }, [])
 
   return (
@@ -157,32 +173,47 @@ function ExperienceModule({ experience }: { experience: typeof experiences[0] })
 }
 
 export function TheExperienceSection() {
-  const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(() => isBackForwardNavigation())
   const sectionRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
+    const el = sectionRef.current
+    if (!el) return
+    const checkInView = () => {
+      const rect = el.getBoundingClientRect()
+      const vh = window.innerHeight || document.documentElement.clientHeight
+      if (rect.top < vh && rect.bottom > 0) {
+        setIsVisible(true)
+        return true
+      }
+      return false
+    }
+    if (checkInView()) return
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true)
         }
       },
-      { threshold: 0.1 }
+      { rootMargin: "0px 0px -10% 0px", threshold: 0 }
     )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
+    observer.observe(el)
+    const onPageShow = (e: PageTransitionEvent) => {
+      if (e.persisted) checkInView()
     }
-
-    return () => observer.disconnect()
+    window.addEventListener("pageshow", onPageShow)
+    return () => {
+      observer.disconnect()
+      window.removeEventListener("pageshow", onPageShow)
+    }
   }, [])
 
   return (
     <section id="experience" ref={sectionRef} className="bg-white">
       {/* Chapter Header — editorial transition into the image slides */}
       <div
-        className={`mx-auto max-w-[820px] px-6 sm:px-8 text-center py-24 md:py-36 lg:py-44 transition-all duration-[1.4s] ease-out ${
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        className={`mx-auto max-w-[820px] px-6 sm:px-8 text-center py-24 md:py-36 lg:py-44 transition-all duration-[700ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         }`}
       >
         <p className="font-sans text-[11px] md:text-[12px] font-medium tracking-[0.4em] uppercase text-[#00AEB6] mb-7">

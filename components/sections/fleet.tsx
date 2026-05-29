@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
+import { isBackForwardNavigation } from "@/lib/navigation"
 
 const vessels = [
   {
@@ -10,16 +11,6 @@ const vessels = [
     category: "Excess 15 Catamaran",
     description: "A contemporary sailing catamaran offering exceptional space and stability for coastal entertaining.",
     mainImage: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/lagoon-60-slider-06-1920x720_0-uky4za90XKl1hZWqBruZNaXamC5v4i.jpg",
-    accentImage: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WechatIMG1540-rYqAuYCnMkPpSSKQSSpBBLEF3cqbOG.jpg",
-    mainPosition: "center center",
-    accentPosition: "center center",
-  },
-  {
-    name: "OCEAN HEART",
-    eyebrow: "THE FLEET",
-    category: "Luxury Motor Yacht",
-    description: "Refined motor yacht accommodations for executive gatherings and seamless client hospitality.",
-    mainImage: "/ocean-heart-main.png",
     accentImage: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Saphire%20Life%20-%20%20Lorenzo%20Guerra%20059%28JB_19845%29-MS54FtxD70XO1aDTEo2bmLGWcQcrZ2.jpg",
     mainPosition: "center center",
     accentPosition: "center center",
@@ -29,8 +20,18 @@ const vessels = [
     eyebrow: "THE FLEET",
     category: "Premium Sailing Vessel",
     description: "Classic sailing heritage combined with modern luxury for intimate coastal experiences.",
-    mainImage: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/1.png-r0C976TFNvJSSoAZNqkHKph6NySYBy.jpeg",
-    accentImage: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Saphire%20Life%20-%20%20Lorenzo%20Guerra%20061%28JB_19858%29-F39zUd23WadgZfRWCYtPNy8FTcxBwb.jpg",
+    mainImage: "/fan-club-main.png",
+    accentImage: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WechatIMG1543-4WobMtNocgABlJA3coN2TizZsnm4Sy.jpg",
+    mainPosition: "center center",
+    accentPosition: "center center",
+  },
+  {
+    name: "OCEAN HEART",
+    eyebrow: "THE FLEET",
+    category: "Luxury Motor Yacht",
+    description: "Refined motor yacht accommodations for executive gatherings and seamless client hospitality.",
+    mainImage: "/ocean-heart-main.png",
+    accentImage: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WechatIMG1540-rYqAuYCnMkPpSSKQSSpBBLEF3cqbOG.jpg",
     mainPosition: "center center",
     accentPosition: "center center",
   },
@@ -40,20 +41,33 @@ const vessels = [
     category: "Executive Day Cruiser",
     description: "Agile and refined. Perfect for spontaneous excursions throughout the harbor.",
     mainImage: "/pedazo-fino-aerial.png",
-    accentImage: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WechatIMG1543-4WobMtNocgABlJA3coN2TizZsnm4Sy.jpg",
+    accentImage: "/pedazo-fino-accent.png",
     mainPosition: "center center",
-    accentPosition: "center center",
+    accentPosition: "center 65%",
+    accentScale: 2.2,
   },
 ]
 
 function VesselSpread({ vessel, index }: { vessel: typeof vessels[0]; index: number }) {
-  const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(() => isBackForwardNavigation())
   const spreadRef = useRef<HTMLDivElement>(null)
   
   // Vessels 0, 2 = main image LEFT; Vessels 1, 3 = main image RIGHT
   const mainImageLeft = index % 2 === 0
 
   useEffect(() => {
+    const el = spreadRef.current
+    if (!el) return
+    const checkInView = () => {
+      const rect = el.getBoundingClientRect()
+      const vh = window.innerHeight || document.documentElement.clientHeight
+      if (rect.top < vh && rect.bottom > 0) {
+        setIsVisible(true)
+        return true
+      }
+      return false
+    }
+    if (checkInView()) return
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -62,12 +76,15 @@ function VesselSpread({ vessel, index }: { vessel: typeof vessels[0]; index: num
       },
       { threshold: 0.1 }
     )
-
-    if (spreadRef.current) {
-      observer.observe(spreadRef.current)
+    observer.observe(el)
+    const onPageShow = (e: PageTransitionEvent) => {
+      if (e.persisted) checkInView()
     }
-
-    return () => observer.disconnect()
+    window.addEventListener("pageshow", onPageShow)
+    return () => {
+      observer.disconnect()
+      window.removeEventListener("pageshow", onPageShow)
+    }
   }, [])
 
   return (
@@ -116,7 +133,11 @@ function VesselSpread({ vessel, index }: { vessel: typeof vessels[0]; index: num
                 src={vessel.accentImage}
                 alt={`${vessel.name} detail`}
                 className="w-full h-full object-cover"
-                style={{ objectPosition: vessel.accentPosition }}
+                style={{
+                  objectPosition: vessel.accentPosition,
+                  transform: vessel.accentScale ? `scale(${vessel.accentScale})` : undefined,
+                  transformOrigin: vessel.accentPosition,
+                }}
               />
             </div>
           </div>
@@ -159,18 +180,37 @@ function VesselSpread({ vessel, index }: { vessel: typeof vessels[0]; index: num
 }
 
 function CaptainBand() {
-  const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(() => isBackForwardNavigation())
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const checkInView = () => {
+      const rect = el.getBoundingClientRect()
+      const vh = window.innerHeight || document.documentElement.clientHeight
+      if (rect.top < vh && rect.bottom > 0) {
+        setIsVisible(true)
+        return true
+      }
+      return false
+    }
+    if (checkInView()) return
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) setIsVisible(true)
       },
       { threshold: 0.2 }
     )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
+    observer.observe(el)
+    const onPageShow = (e: PageTransitionEvent) => {
+      if (e.persisted) checkInView()
+    }
+    window.addEventListener("pageshow", onPageShow)
+    return () => {
+      observer.disconnect()
+      window.removeEventListener("pageshow", onPageShow)
+    }
   }, [])
 
   return (
@@ -231,18 +271,33 @@ function CaptainBand() {
 
 export function FleetSection() {
   const sectionRef = useRef<HTMLElement>(null)
-  const [headerVisible, setHeaderVisible] = useState(false)
+  const [headerVisible, setHeaderVisible] = useState(() => isBackForwardNavigation())
   const headerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    const el = headerRef.current
+    if (!el) return
+    const rect = el.getBoundingClientRect()
+    const vh = window.innerHeight || document.documentElement.clientHeight
+    if (rect.top < vh && rect.bottom > 0) {
+      setHeaderVisible(true)
+      return
+    }
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) setHeaderVisible(true)
       },
       { threshold: 0.2 }
     )
-    if (headerRef.current) observer.observe(headerRef.current)
-    return () => observer.disconnect()
+    observer.observe(el)
+    const onPageShow = (e: PageTransitionEvent) => {
+      if (e.persisted) setHeaderVisible(true)
+    }
+    window.addEventListener("pageshow", onPageShow)
+    return () => {
+      observer.disconnect()
+      window.removeEventListener("pageshow", onPageShow)
+    }
   }, [])
 
   return (

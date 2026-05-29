@@ -1,13 +1,37 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
+import { isBackForwardNavigation } from "@/lib/navigation"
 
 export function HeroSection() {
-  const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(() => isBackForwardNavigation())
+  const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100)
-    return () => clearTimeout(timer)
+
+    const tryPlay = () => {
+      const v = videoRef.current
+      if (!v) return
+      const p = v.play()
+      if (p && typeof p.catch === "function") p.catch(() => {})
+    }
+    tryPlay()
+
+    const onPageShow = (e: PageTransitionEvent) => {
+      if (e.persisted) setIsVisible(true)
+      tryPlay()
+    }
+    const onVisibility = () => {
+      if (document.visibilityState === "visible") tryPlay()
+    }
+    window.addEventListener("pageshow", onPageShow)
+    document.addEventListener("visibilitychange", onVisibility)
+    return () => {
+      clearTimeout(timer)
+      window.removeEventListener("pageshow", onPageShow)
+      document.removeEventListener("visibilitychange", onVisibility)
+    }
   }, [])
 
   return (
@@ -15,12 +39,13 @@ export function HeroSection() {
       {/* Video Background */}
       <div className="absolute inset-0">
         <video
+          ref={videoRef}
           autoPlay
           muted
           loop
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-          poster="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Saphire%20Life%20-%20%20Lorenzo%20Guerra%20030%28JB_19425%29-Mr5QGRjQB1t5xjm4kyxXlN26uVCraA.jpg"
+          preload="auto"
+          className="absolute inset-0 w-full h-full object-cover bg-[#192952]"
         >
           <source
             src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/My_Movie1_v0_under20mb-rWj8mUK47SPa9uimYCDT1sFf35QVbq.mp4"
@@ -44,36 +69,42 @@ export function HeroSection() {
           }`}
         >
           {/* Eyebrow */}
-          <p className="font-sans text-[10px] font-light tracking-[0.4em] uppercase text-white/70 mb-8">
-            NEWPORT HARBOR, CALIFORNIA
+          <p className="font-sans text-[12px] md:text-[13px] font-light tracking-[0.5em] uppercase text-white/80 mb-10">
+            NEWPORT HARBOR · CALIFORNIA
           </p>
 
-          {/* Main Headline - Larger, more spacious */}
-          <h1 
+          {/* Main Headline */}
+          <h1
             style={{ fontFamily: "'Ogg', 'Cormorant Garamond', Georgia, serif" }}
-            className="text-3xl md:text-4xl lg:text-5xl xl:text-[3.5rem] font-normal text-white tracking-[0.12em] leading-[1.15] mb-7 max-w-4xl uppercase"
+            className="text-[40px] md:text-[60px] lg:text-[78px] xl:text-[88px] font-normal text-white tracking-[0.08em] leading-[1.1] mb-10 max-w-5xl uppercase"
           >
-            A PRIVATE COMMUNITY<br className="hidden md:block" /> ON THE WATER
+            A Private Community<br className="hidden md:block" /> On the Water
           </h1>
 
           {/* Subline */}
           <p
             style={{ fontFamily: "'Ogg', 'Cormorant Garamond', Georgia, serif" }}
-            className="text-base md:text-lg lg:text-xl font-light italic text-white/85 mb-12 max-w-[640px] mx-auto leading-relaxed"
+            className="text-[20px] md:text-[24px] lg:text-[26px] font-light italic text-white/90 mb-14 max-w-[720px] mx-auto leading-[1.55]"
           >
-            A curated coastal life — private socializing, family warmth,
-            and butler-style service by the sea.
+            A curated coastal life — private socializing, family warmth, and butler-style service by the sea.
           </p>
 
-          {/* CTA - Minimal and refined */}
+          {/* CTA */}
           <a
-            href="#inquiry"
-            className={`inline-block border border-white/60 px-10 py-3.5 text-[10px] font-sans font-light tracking-[0.25em] uppercase text-white/90 hover:bg-white/10 hover:border-white/80 transition-all duration-500 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
-            style={{ transitionDelay: "400ms" }}
+            href="/inquiry"
+            className="group relative inline-flex items-center gap-3 overflow-hidden border border-white/70 px-12 py-4 text-[12px] md:text-[13px] font-sans font-medium tracking-[0.3em] uppercase text-white transition-[border-color,color,transform,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-white hover:text-[#1A3A5C] hover:-translate-y-0.5 hover:shadow-[0_18px_40px_-12px_rgba(0,0,0,0.35)]"
           >
-            Request a Private Introduction
+            <span
+              aria-hidden
+              className="absolute inset-0 -z-10 origin-left scale-x-0 bg-white/90 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100"
+            />
+            <span className="relative">Apply for Membership</span>
+            <span
+              aria-hidden
+              className="relative inline-block translate-x-0 opacity-70 transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1.5 group-hover:opacity-100"
+            >
+              →
+            </span>
           </a>
         </div>
       </div>

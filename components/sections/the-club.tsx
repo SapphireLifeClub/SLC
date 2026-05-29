@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
+import { isBackForwardNavigation } from "@/lib/navigation"
 
 const heroImage = {
   src: "/club-network-main.png",
@@ -9,18 +10,37 @@ const heroImage = {
 }
 
 export function TheClubSection() {
-  const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(() => isBackForwardNavigation())
   const sectionRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
+    const el = sectionRef.current
+    if (!el) return
+    const checkInView = () => {
+      const rect = el.getBoundingClientRect()
+      const vh = window.innerHeight || document.documentElement.clientHeight
+      if (rect.top < vh && rect.bottom > 0) {
+        setIsVisible(true)
+        return true
+      }
+      return false
+    }
+    if (checkInView()) return
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) setIsVisible(true)
       },
       { threshold: 0.1 }
     )
-    if (sectionRef.current) observer.observe(sectionRef.current)
-    return () => observer.disconnect()
+    observer.observe(el)
+    const onPageShow = (e: PageTransitionEvent) => {
+      if (e.persisted) checkInView()
+    }
+    window.addEventListener("pageshow", onPageShow)
+    return () => {
+      observer.disconnect()
+      window.removeEventListener("pageshow", onPageShow)
+    }
   }, [])
 
   return (
@@ -97,7 +117,7 @@ export function TheClubSection() {
               href="/inquiry"
               className="inline-block border border-[#00AEB6] bg-transparent px-10 sm:px-14 py-4 text-[11px] font-sans font-medium tracking-[0.25em] uppercase text-[#00AEB6] hover:bg-[#00AEB6] hover:text-white transition-all duration-300"
             >
-              Request a Private Introduction
+              Apply for Membership
             </Link>
           </div>
         </div>

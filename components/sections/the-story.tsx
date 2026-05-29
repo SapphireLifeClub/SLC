@@ -2,20 +2,40 @@
 
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
+import { isBackForwardNavigation } from "@/lib/navigation"
 
 export function TheStorySection() {
-  const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(() => isBackForwardNavigation())
   const sectionRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
+    const el = sectionRef.current
+    if (!el) return
+    const checkInView = () => {
+      const rect = el.getBoundingClientRect()
+      const vh = window.innerHeight || document.documentElement.clientHeight
+      if (rect.top < vh && rect.bottom > 0) {
+        setIsVisible(true)
+        return true
+      }
+      return false
+    }
+    if (checkInView()) return
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) setIsVisible(true)
       },
       { threshold: 0.1 }
     )
-    if (sectionRef.current) observer.observe(sectionRef.current)
-    return () => observer.disconnect()
+    observer.observe(el)
+    const onPageShow = (e: PageTransitionEvent) => {
+      if (e.persisted) checkInView()
+    }
+    window.addEventListener("pageshow", onPageShow)
+    return () => {
+      observer.disconnect()
+      window.removeEventListener("pageshow", onPageShow)
+    }
   }, [])
 
   return (

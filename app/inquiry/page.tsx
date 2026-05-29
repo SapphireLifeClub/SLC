@@ -132,7 +132,7 @@ export default function InquiryPage() {
               style={{ fontFamily: "'Ogg', 'Cormorant Garamond', Georgia, serif" }}
               className="text-[28px] md:text-[36px] lg:text-[42px] font-normal text-[#1A3A5C] tracking-[0.04em] leading-[1.15] uppercase mb-8"
             >
-              Request a Private Introduction
+              Apply for Membership
             </h1>
             <p className="font-serif text-[15px] md:text-[16px] font-light text-[#1A3A5C]/65 leading-[1.85] max-w-[620px] mx-auto">
               Membership consideration begins with a private introduction. All inquiries are reviewed personally and handled with complete discretion.
@@ -330,7 +330,7 @@ export default function InquiryPage() {
                     disabled={isSubmitting}
                     className="border border-[#00AEB6] bg-transparent text-[#00AEB6] px-14 py-5 text-[11px] font-sans font-medium tracking-[0.22em] uppercase hover:bg-[#00AEB6] hover:text-white transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {isSubmitting ? "Submitting..." : "Request a Private Introduction"}
+                    {isSubmitting ? "Submitting..." : "Apply for Membership"}
                   </button>
                   
                   {submitStatus === "error" && (
