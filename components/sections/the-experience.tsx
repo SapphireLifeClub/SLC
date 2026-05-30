@@ -75,6 +75,7 @@ const experiences = [
 function ExperienceModule({ experience }: { experience: typeof experiences[0] }) {
   const [isVisible, setIsVisible] = useState(() => isBackForwardNavigation())
   const moduleRef = useRef<HTMLDivElement>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
     const el = moduleRef.current
@@ -108,21 +109,75 @@ function ExperienceModule({ experience }: { experience: typeof experiences[0] })
     }
   }, [])
 
+  useEffect(() => {
+    if (!experience.video) return
+    const tryPlay = () => {
+      const v = videoRef.current
+      if (!v) return
+      v.muted = true
+      v.defaultMuted = true
+      const p = v.play()
+      if (p && typeof p.catch === "function") p.catch(() => {})
+    }
+    tryPlay()
+    const rafId = requestAnimationFrame(tryPlay)
+    const retry = setTimeout(tryPlay, 300)
+    const onPageShow = (e: PageTransitionEvent) => {
+      if (e.persisted) tryPlay()
+    }
+    const onVisibility = () => {
+      if (document.visibilityState === "visible") tryPlay()
+    }
+    const onFirstTouch = () => tryPlay()
+    window.addEventListener("pageshow", onPageShow)
+    document.addEventListener("visibilitychange", onVisibility)
+    document.addEventListener("touchstart", onFirstTouch, { once: true, passive: true })
+    document.addEventListener("click", onFirstTouch, { once: true })
+    return () => {
+      clearTimeout(retry)
+      cancelAnimationFrame(rafId)
+      window.removeEventListener("pageshow", onPageShow)
+      document.removeEventListener("visibilitychange", onVisibility)
+      document.removeEventListener("touchstart", onFirstTouch)
+      document.removeEventListener("click", onFirstTouch)
+    }
+  }, [experience.video])
+
   return (
     <div
       ref={moduleRef}
       className="relative w-full lg:h-[100svh] flex flex-col lg:block"
     >
       {/* Media — natural-aspect on mobile/tablet, full-bleed on desktop */}
-      <div className="relative w-full aspect-[16/10] lg:aspect-auto lg:absolute lg:inset-0 lg:h-full">
+      <div className="relative w-full aspect-[16/10] lg:aspect-auto lg:absolute lg:inset-0 lg:h-full overflow-hidden bg-[#192952]">
         {experience.video ? (
           <video
+            ref={videoRef}
             autoPlay
             muted
             loop
             playsInline
+            preload="auto"
+            // @ts-ignore - non-standard but required for iOS WebKit
+            webkit-playsinline="true"
+            // @ts-ignore - non-standard but required for some Android browsers
+            x5-playsinline="true"
+            disablePictureInPicture
             poster={experience.image}
-            className="w-full h-full object-cover"
+            onLoadedMetadata={(e) => {
+              const v = e.currentTarget
+              v.muted = true
+              const p = v.play()
+              if (p && typeof p.catch === "function") p.catch(() => {})
+            }}
+            onCanPlay={(e) => {
+              const v = e.currentTarget
+              if (v.paused) {
+                const p = v.play()
+                if (p && typeof p.catch === "function") p.catch(() => {})
+              }
+            }}
+            className="block w-full h-full object-cover outline-none border-0"
             style={{ objectPosition: experience.objectPosition }}
           >
             <source src={experience.video} type="video/mp4" />
@@ -131,7 +186,7 @@ function ExperienceModule({ experience }: { experience: typeof experiences[0] })
           <img
             src={experience.image}
             alt={experience.title}
-            className="w-full h-full object-cover"
+            className="block w-full h-full object-cover"
             style={{ objectPosition: experience.objectPosition }}
           />
         )}

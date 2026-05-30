@@ -9,37 +9,57 @@ const vessels = [
     name: "AEOLUS",
     eyebrow: "THE FLEET",
     category: "Excess 15 Catamaran",
-    description: "A contemporary sailing catamaran offering exceptional space and stability for coastal entertaining.",
-    mainImage: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/lagoon-60-slider-06-1920x720_0-uky4za90XKl1hZWqBruZNaXamC5v4i.jpg",
+    specs: [
+      "49-Foot Sailing Catamaran",
+      "Up to 14 Guests",
+      "Spacious Open-Air Social Areas",
+      "Exceptional Stability for Coastal Entertaining",
+    ],
+    mainImage: "/aeolus-main.png",
     accentImage: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Saphire%20Life%20-%20%20Lorenzo%20Guerra%20059%28JB_19845%29-MS54FtxD70XO1aDTEo2bmLGWcQcrZ2.jpg",
-    mainPosition: "center center",
-    accentPosition: "center center",
-  },
-  {
-    name: "FAN CLUB",
-    eyebrow: "THE FLEET",
-    category: "Premium Sailing Vessel",
-    description: "Classic sailing heritage combined with modern luxury for intimate coastal experiences.",
-    mainImage: "/fan-club-main.png",
-    accentImage: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WechatIMG1543-4WobMtNocgABlJA3coN2TizZsnm4Sy.jpg",
     mainPosition: "center center",
     accentPosition: "center center",
   },
   {
     name: "OCEAN HEART",
     eyebrow: "THE FLEET",
-    category: "Luxury Motor Yacht",
-    description: "Refined motor yacht accommodations for executive gatherings and seamless client hospitality.",
+    category: "Lagoon 42 Catamaran",
+    specs: [
+      "43-Foot Sailing Catamaran",
+      "Up to 12 Guests",
+      "25-Foot Beam for Exceptional Stability",
+      "Indoor–Outdoor Living & Social Spaces",
+    ],
     mainImage: "/ocean-heart-main.png",
     accentImage: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WechatIMG1540-rYqAuYCnMkPpSSKQSSpBBLEF3cqbOG.jpg",
     mainPosition: "center center",
     accentPosition: "center center",
   },
   {
+    name: "FAN CLUB",
+    eyebrow: "THE FLEET",
+    category: "Sea Ray 580 Super Sun Sport",
+    specs: [
+      "66-Foot Luxury Motor Yacht",
+      "Up to 12 Guests",
+      "Spacious Indoor & Outdoor Entertaining Areas",
+      "Harbor Cruising & Private Gatherings",
+    ],
+    mainImage: "/fan-club-main.png",
+    accentImage: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WechatIMG1543-4WobMtNocgABlJA3coN2TizZsnm4Sy.jpg",
+    mainPosition: "center center",
+    accentPosition: "center center",
+  },
+  {
     name: "PEDAZO FINO",
     eyebrow: "THE FLEET",
-    category: "Executive Day Cruiser",
-    description: "Agile and refined. Perfect for spontaneous excursions throughout the harbor.",
+    category: "Azimut Grande 27M",
+    specs: [
+      "88-Foot Italian Luxury Motor Yacht",
+      "Up to 12 Guests",
+      "Four Luxury Staterooms",
+      "Executive Hospitality & Private Celebrations",
+    ],
     mainImage: "/pedazo-fino-aerial.png",
     accentImage: "/pedazo-fino-accent.png",
     mainPosition: "center center",
@@ -168,10 +188,18 @@ function VesselSpread({ vessel, index }: { vessel: typeof vessels[0]; index: num
               {vessel.category}
             </p>
 
-            {/* Description */}
-            <p className="font-sans text-[15px] md:text-[16px] lg:text-[17px] font-light text-[#192952]/70 leading-[1.85]">
-              {vessel.description}
-            </p>
+            {/* Specs */}
+            <ul
+              className={`font-sans text-[15px] md:text-[16px] lg:text-[17px] font-light text-[#192952]/70 leading-[1.85] space-y-1.5 list-none ${
+                mainImageLeft
+                  ? 'text-center md:text-left'
+                  : 'text-center md:text-left lg:text-right'
+              }`}
+            >
+              {vessel.specs.map((spec) => (
+                <li key={spec}>{spec}</li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>

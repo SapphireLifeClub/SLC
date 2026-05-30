@@ -50,7 +50,7 @@ export function HeroSection() {
   return (
     <section className="relative h-screen w-full overflow-hidden">
       {/* Video Background */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 overflow-hidden bg-[#192952]">
         <video
           ref={videoRef}
           autoPlay
@@ -77,7 +77,7 @@ export function HeroSection() {
             }
           }}
           poster="/hero-poster.jpg"
-          className="absolute inset-0 w-full h-full object-cover bg-[#192952]"
+          className="block absolute inset-0 w-full h-full object-cover bg-[#192952] outline-none border-0"
         >
           <source src="/hero.mp4" type="video/mp4" />
         </video>
@@ -105,7 +105,7 @@ export function HeroSection() {
           {/* Main Headline */}
           <h1
             style={{ fontFamily: "'Ogg', 'Cormorant Garamond', Georgia, serif" }}
-            className="text-[30px] sm:text-[40px] md:text-[60px] lg:text-[78px] xl:text-[88px] font-normal text-white tracking-[0.04em] sm:tracking-[0.08em] leading-[1.15] mb-6 sm:mb-10 max-w-5xl uppercase mx-auto"
+            className="text-[26px] sm:text-[34px] md:text-[48px] lg:text-[62px] xl:text-[70px] font-light text-white tracking-[0.05em] sm:tracking-[0.1em] leading-[1.2] mb-6 sm:mb-10 max-w-4xl uppercase mx-auto"
           >
             A Private Community<br className="hidden md:block" /> On the Water
           </h1>
