@@ -64,7 +64,7 @@ export function MembershipSection() {
               style={{ fontFamily: "'Ogg', 'Cormorant Garamond', Georgia, serif" }}
               className="text-[36px] md:text-[52px] lg:text-[64px] font-normal text-[#1A3A5C] tracking-[0.03em] leading-[1.05] mb-16"
             >
-              By Introduction.<br className="hidden md:block" />
+              By Introduction.<br />
               <span className="italic">By Invitation.</span>
             </h2>
 

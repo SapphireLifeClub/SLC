@@ -76,12 +76,10 @@ export function HeroSection() {
               if (p && typeof p.catch === "function") p.catch(() => {})
             }
           }}
+          poster="/hero-poster.jpg"
           className="absolute inset-0 w-full h-full object-cover bg-[#192952]"
         >
-          <source
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/My_Movie1_v0_under20mb-rWj8mUK47SPa9uimYCDT1sFf35QVbq.mp4"
-            type="video/mp4"
-          />
+          <source src="/hero.mp4" type="video/mp4" />
         </video>
         <div
           className="absolute inset-0"

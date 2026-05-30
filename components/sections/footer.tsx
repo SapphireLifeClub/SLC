@@ -6,33 +6,23 @@ import Image from "next/image"
 import { isBackForwardNavigation } from "@/lib/navigation"
 
 const partners = [
-  { initials: "NYC", name: "NEWPORT YACHT CLUB" },
-  { initials: "PMG", name: "PACIFIC MARITIME GROUP" },
-  { initials: "CV", name: "COASTAL VENTURES" },
-  { initials: "HCP", name: "HARBOR CAPITAL PARTNERS" },
-  { initials: "RH", name: "RIVIERA HOLDINGS" },
-  { initials: "MT", name: "MARITIME TRUST" },
-  { initials: "BIG", name: "BALBOA INVESTMENT GROUP" },
-  { initials: "OA", name: "OCEANSIDE ADVISORS" },
+  { name: "American Lending Center", src: "/partners/american-lending-center.png", scale: 1 },
+  { name: "Freeman Marine Services", src: "/partners/freeman-marine-services.png", scale: 2.6 },
+  { name: "Sunstone", src: "/partners/sunstone.png", scale: 1 },
+  { name: "American Sailing", src: "/partners/american-sailing.png", scale: 1.3 },
 ]
 
-function PartnerItem({ name }: { initials: string; name: string }) {
+function PartnerItem({ name, src, scale }: { name: string; src: string; scale: number }) {
   return (
-    <div className="flex items-center px-10 md:px-14">
-      <span
-        style={{ fontFamily: "'Ogg', 'Cormorant Garamond', Georgia, serif" }}
-        className="text-[20px] md:text-[26px] lg:text-[30px] font-light tracking-[0.18em] uppercase text-white whitespace-nowrap"
-      >
-        {name}
-      </span>
-    </div>
-  )
-}
-
-function PartnerSeparator() {
-  return (
-    <div className="flex items-center px-2">
-      <span className="text-white/50 text-[14px]">·</span>
+    <div className="flex items-center justify-center">
+      <Image
+        src={src}
+        alt={name}
+        width={320}
+        height={120}
+        style={{ height: `clamp(${scale * 2.25}rem, ${scale * 5}vw, ${scale * 3.5}rem)` }}
+        className="w-auto object-contain brightness-0 invert opacity-90"
+      />
     </div>
   )
 }
@@ -100,32 +90,28 @@ export function Footer() {
       />
       {/* Foreground content wrapper */}
       <div className="relative z-10">
-      {/* Partners Marquee Section */}
-      <div className="py-20 md:py-24 lg:py-28">
+      {/* Partners Section */}
+      <div className="py-14 md:py-16 lg:py-20">
         <div
           className={`transition-all duration-[1s] ease-out ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
           }`}
         >
-          {/* OUR PARTNERS Label */}
-          <p className="font-sans text-[14px] md:text-[16px] lg:text-[17px] font-medium tracking-[0.5em] uppercase text-white text-center mb-14 md:mb-20">
-            OUR PARTNERS
+          {/* OUR PARTNERS Label — matches eyebrow style used elsewhere on the site */}
+          <p className="font-sans text-[11px] md:text-[12px] font-medium tracking-[0.4em] uppercase text-white/70 text-center mb-10 md:mb-12">
+            Our Partners
           </p>
 
-          {/* Auto-scrolling Marquee — editorial serif names */}
-          <div className="relative overflow-hidden">
-            <div className="flex items-center animate-marquee">
+          {/* Static 4-up row — evenly distributed across full width */}
+          <div className="mx-auto max-w-[1400px] px-6 sm:px-8 lg:px-16">
+            <div className="grid grid-cols-2 md:grid-cols-4 items-center gap-y-10 gap-x-8 md:gap-x-10 lg:gap-x-12">
               {partners.map((partner, index) => (
-                <div key={`first-${index}`} className="flex items-center">
-                  <PartnerItem initials={partner.initials} name={partner.name} />
-                  <PartnerSeparator />
-                </div>
-              ))}
-              {partners.map((partner, index) => (
-                <div key={`second-${index}`} className="flex items-center">
-                  <PartnerItem initials={partner.initials} name={partner.name} />
-                  <PartnerSeparator />
-                </div>
+                <PartnerItem
+                  key={index}
+                  name={partner.name}
+                  src={partner.src}
+                  scale={partner.scale}
+                />
               ))}
             </div>
           </div>

@@ -6,7 +6,7 @@ import { isBackForwardNavigation } from "@/lib/navigation"
 
 const heroImage = {
   src: "/club-network-main.png",
-  alt: "Members gathered aboard a private vessel in Newport Harbor",
+  alt: "Sapphire Life — Private Club in Newport Beach",
 }
 
 export function TheClubSection() {
@@ -82,19 +82,44 @@ export function TheClubSection() {
         </div>
 
         {/* Editorial Image Composition */}
-        <div className="mt-20 md:mt-28 lg:mt-36 mx-auto max-w-[1200px] px-6 sm:px-8 md:px-12 lg:px-16">
-          {/* Large hero image */}
+        <div className="mt-20 md:mt-28 lg:mt-36 mx-auto max-w-[920px] px-6 sm:px-8 md:px-12 lg:px-16">
+          {/* Ambient sapphire glow behind the card */}
           <div
-            className={`relative w-full overflow-hidden transition-all duration-[1.4s] ease-out delay-200 ${
+            className={`relative transition-all duration-[1.4s] ease-out delay-200 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
-            style={{ aspectRatio: "16 / 9" }}
           >
-            <img
-              src={heroImage.src}
-              alt={heroImage.alt}
-              className="w-full h-full object-cover"
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -inset-12 md:-inset-20 -z-10"
+              style={{
+                background:
+                  "radial-gradient(ellipse at center, rgba(25,41,82,0.10) 0%, rgba(25,41,82,0.04) 45%, transparent 75%)",
+                filter: "blur(20px)",
+              }}
             />
+
+            {/* Editorial card — natural aspect, gilded hairline, soft shadow */}
+            <div
+              className="relative w-full overflow-hidden ring-1 ring-[#192952]/15 shadow-[0_30px_80px_-30px_rgba(25,41,82,0.45),0_10px_30px_-15px_rgba(25,41,82,0.25)]"
+              style={{ aspectRatio: "21 / 10" }}
+            >
+              <img
+                src={heroImage.src}
+                alt={heroImage.alt}
+                className="w-full h-full object-cover"
+                style={{ objectPosition: "center 60%" }}
+              />
+              {/* Soft top-edge vignette to add depth */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(to bottom, rgba(0,0,0,0.18) 0%, transparent 25%, transparent 75%, rgba(0,0,0,0.22) 100%)",
+                }}
+              />
+            </div>
           </div>
 
           {/* Caption */}

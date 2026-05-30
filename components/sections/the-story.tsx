@@ -54,8 +54,8 @@ export function TheStorySection() {
           {/* Founder portrait — 60% on desktop, full on mobile */}
           <div className="relative w-full lg:w-[60%] h-[420px] sm:h-[520px] md:h-[600px] lg:h-auto overflow-hidden">
             <Image
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Saphire%20Life%20-%20%20Lorenzo%20Guerra%20002%28JB_19064%29-1dxKZAT8YSITTTHHY1NOI1TXdPM7WH.jpg"
-              alt="John Shen, Founder, with Captain Mike at Newport Harbor"
+              src="/founder-portrait.png"
+              alt="John Shen, Founder, at Newport Harbor"
               fill
               className="object-cover"
               style={{ objectPosition: 'center 30%' }}
