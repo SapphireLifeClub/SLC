@@ -82,7 +82,7 @@ function ExperienceModule({ experience }: { experience: typeof experiences[0] })
     const checkInView = () => {
       const rect = el.getBoundingClientRect()
       const vh = window.innerHeight || document.documentElement.clientHeight
-      if (rect.top < vh && rect.bottom > 0) {
+      if (rect.top < vh) {
         setIsVisible(true)
         return true
       }
@@ -264,7 +264,7 @@ export function TheExperienceSection() {
     const checkInView = () => {
       const rect = el.getBoundingClientRect()
       const vh = window.innerHeight || document.documentElement.clientHeight
-      if (rect.top < vh && rect.bottom > 0) {
+      if (rect.top < vh) {
         setIsVisible(true)
         return true
       }

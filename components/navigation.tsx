@@ -77,10 +77,10 @@ export function Navigation() {
         {/* Desktop Navigation - Right aligned, grouped together */}
         <div className="hidden lg:flex items-center gap-7 xl:gap-9">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.label}
               href={link.href}
-              onClick={(e) => handleNavClick(e, link.href)}
+              onClick={(e) => handleNavClick(e as any, link.href)}
               className={`font-sans font-light uppercase transition-all duration-300 hover:text-[#00AEB6] ${
                 isScrolled 
                   ? "text-[10px] tracking-[0.18em] text-[#1A3A5C]" 
@@ -88,7 +88,7 @@ export function Navigation() {
               }`}
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </div>
 
@@ -118,14 +118,14 @@ export function Navigation() {
       >
         <div className="px-10 py-10 flex flex-col gap-7">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.label}
               href={link.href}
-              onClick={(e) => handleNavClick(e, link.href)}
+              onClick={(e) => handleNavClick(e as any, link.href)}
               className="text-[11px] font-sans font-light tracking-[0.2em] uppercase text-[#1A3A5C] hover:text-[#00AEB6] transition-colors"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </div>
       </div>

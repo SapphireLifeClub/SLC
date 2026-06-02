@@ -13,7 +13,7 @@ function useInView<T extends HTMLElement>(threshold = 0.15) {
     const checkInView = () => {
       const rect = el.getBoundingClientRect()
       const vh = window.innerHeight || document.documentElement.clientHeight
-      if (rect.top < vh && rect.bottom > 0) {
+      if (rect.top < vh) {
         setIsVisible(true)
         return true
       }
@@ -63,7 +63,7 @@ function MapPanel() {
               style={{ aspectRatio: '5 / 4' }}
             >
               <Image
-                src="/harbor-map.png"
+                src="/harbor-map.jpg"
                 alt="Newport Beach map showing Sapphire Life Club's harbor location on the Balboa Peninsula"
                 fill
                 className="object-cover"

@@ -19,7 +19,7 @@ export function TheClubSection() {
     const checkInView = () => {
       const rect = el.getBoundingClientRect()
       const vh = window.innerHeight || document.documentElement.clientHeight
-      if (rect.top < vh && rect.bottom > 0) {
+      if (rect.top < vh) {
         setIsVisible(true)
         return true
       }

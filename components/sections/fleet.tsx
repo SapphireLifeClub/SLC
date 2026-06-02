@@ -81,7 +81,7 @@ function VesselSpread({ vessel, index }: { vessel: typeof vessels[0]; index: num
     const checkInView = () => {
       const rect = el.getBoundingClientRect()
       const vh = window.innerHeight || document.documentElement.clientHeight
-      if (rect.top < vh && rect.bottom > 0) {
+      if (rect.top < vh) {
         setIsVisible(true)
         return true
       }
@@ -217,7 +217,7 @@ function CaptainBand() {
     const checkInView = () => {
       const rect = el.getBoundingClientRect()
       const vh = window.innerHeight || document.documentElement.clientHeight
-      if (rect.top < vh && rect.bottom > 0) {
+      if (rect.top < vh) {
         setIsVisible(true)
         return true
       }
@@ -307,7 +307,7 @@ export function FleetSection() {
     if (!el) return
     const rect = el.getBoundingClientRect()
     const vh = window.innerHeight || document.documentElement.clientHeight
-    if (rect.top < vh && rect.bottom > 0) {
+    if (rect.top < vh) {
       setHeaderVisible(true)
       return
     }
