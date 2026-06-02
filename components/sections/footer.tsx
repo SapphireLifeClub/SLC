@@ -157,15 +157,38 @@ export function Footer() {
             </a>
           </div>
 
-          {/* Contact Line */}
-          <p className="font-sans text-[14px] md:text-[15px] font-light tracking-[0.15em] text-white/90 mb-14 md:mb-16">
-            hello@sapphirelife.org &nbsp;|&nbsp; +1 (949) 555-0100
-          </p>
+          {/* Contact Line — stacked on mobile, inline on desktop */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 font-sans text-[14px] md:text-[15px] font-light tracking-normal sm:tracking-[0.15em] text-white/90 mb-14 md:mb-16">
+            <a href="mailto:hello@sapphirelife.org" className="hover:text-white transition-colors">
+              hello@sapphirelife.org
+            </a>
+            <span aria-hidden className="hidden sm:inline text-white/40">|</span>
+            <a href="tel:+15624490139" className="hover:text-white transition-colors">
+              +1 (562) 449-0139
+            </a>
+          </div>
 
           {/* Bottom Line */}
-          <p className="font-sans text-[11px] md:text-[12px] font-light tracking-[0.25em] uppercase text-white/70 text-center">
-            © 2026 SAPPHIRE LIFE CLUB. ALL RIGHTS RESERVED.
-          </p>
+          <div className="flex flex-col items-center gap-4 sm:gap-3">
+            <div className="flex items-center gap-5 sm:gap-7">
+              <Link
+                href="/privacy"
+                className="font-sans text-[11px] md:text-[12px] font-light tracking-[0.25em] uppercase text-white/70 hover:text-white transition-colors"
+              >
+                Privacy
+              </Link>
+              <span aria-hidden className="text-white/35 text-[10px]">·</span>
+              <Link
+                href="/terms"
+                className="font-sans text-[11px] md:text-[12px] font-light tracking-[0.25em] uppercase text-white/70 hover:text-white transition-colors"
+              >
+                Terms
+              </Link>
+            </div>
+            <p className="font-sans text-[11px] md:text-[12px] font-light tracking-[0.25em] uppercase text-white/70 text-center">
+              © 2026 SAPPHIRE LIFE CLUB. ALL RIGHTS RESERVED.
+            </p>
+          </div>
         </div>
       </div>
       </div>
