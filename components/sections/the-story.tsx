@@ -72,6 +72,16 @@ export function TheStorySection() {
               className="hidden lg:block absolute top-0 bottom-0 left-0 w-px bg-[#00AEB6]/40"
             />
 
+            {/* Embossed club seal — bottom right of letter */}
+            <Image
+              src="/wax-stamp.png"
+              alt="Sapphire Life Club seal"
+              width={160}
+              height={160}
+              aria-hidden
+              className="absolute bottom-8 right-8 sm:bottom-10 sm:right-10 md:bottom-12 md:right-12 lg:bottom-10 lg:right-8 xl:bottom-12 xl:right-12 w-[88px] sm:w-[104px] md:w-[120px] lg:w-[112px] xl:w-[128px] h-auto opacity-80 mix-blend-screen pointer-events-none select-none -rotate-[8deg]"
+            />
+
             <div className="w-full px-8 sm:px-12 md:px-16 lg:px-14 xl:px-20 2xl:px-24 py-16 sm:py-20 md:py-24 lg:py-20 xl:py-24">
               <div className="max-w-[520px]">
                 {/* Eyebrow */}
@@ -110,7 +120,7 @@ export function TheStorySection() {
 
                 {/* Signature block */}
                 <div className="mt-12 md:mt-14 pt-8 border-t border-white/15">
-                  <p className="text-[32px] md:text-[38px] lg:text-[34px] xl:text-[40px] text-white mb-3 font-signature leading-none">
+                  <p className="text-[44px] md:text-[52px] lg:text-[48px] xl:text-[56px] text-white mb-3 font-signature leading-[1] tracking-normal">
                     John Shen
                   </p>
                   <p className="font-sans text-[10px] md:text-[11px] font-medium tracking-[0.4em] uppercase text-white/55">

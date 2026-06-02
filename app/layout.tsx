@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Cormorant_Garamond, Poppins, Dancing_Script } from 'next/font/google'
+import { Cormorant_Garamond, Poppins, Herr_Von_Muellerhoff } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
@@ -17,10 +17,10 @@ const poppins = Poppins({
   display: 'swap',
 })
 
-const dancingScript = Dancing_Script({
+const spencerian = Herr_Von_Muellerhoff({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-dancing',
+  weight: ['400'],
+  variable: '--font-signature-script',
   display: 'swap',
 })
 
@@ -48,7 +48,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" data-scroll-behavior="smooth" className={`${cormorant.variable} ${poppins.variable} ${dancingScript.variable} bg-background`}>
+    <html lang="en" data-scroll-behavior="smooth" className={`${cormorant.variable} ${poppins.variable} ${spencerian.variable} bg-background`}>
       <body className="font-sans antialiased">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}

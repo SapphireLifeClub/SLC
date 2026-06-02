@@ -21,9 +21,9 @@ const experiences = [
   },
   {
     number: "—",
-    title: "PENINSULA VILLAGE",
-    subtitle: "Home harbor on the Newport Peninsula.",
-    image: "/peninsula-village.jpeg",
+    title: "ON THE WATER",
+    subtitle: "A protected harbor of warm currents.",
+    image: "/on-the-water.png",
     objectPosition: "center center",
   },
   {
@@ -35,6 +35,13 @@ const experiences = [
     objectPosition: "center center",
   },
   {
+    number: "—",
+    title: "QUIET MOMENTS",
+    subtitle: "Unhurried hours by the sea.",
+    image: "/quiet-moments.png",
+    objectPosition: "center 30%",
+  },
+  {
     number: "04",
     title: "SEASONAL MEMBER GATHERINGS",
     subtitle: "Curated experiences and traditions.",
@@ -43,31 +50,23 @@ const experiences = [
   },
   {
     number: "—",
-    title: "ON THE WATER",
-    subtitle: "A protected harbor of warm currents.",
-    image: "/on-the-water.png",
+    title: "PHILANTHROPY & COMMUNITY",
+    subtitle: "Meaningful engagement.",
+    image: "/philanthropy-community.png",
     objectPosition: "center center",
-  },
-  // Hidden for now — PHILANTHROPY & COMMUNITY
-  // {
-  //   number: "05",
-  //   title: "PHILANTHROPY & COMMUNITY",
-  //   subtitle: "Meaningful engagement.",
-  //   image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Saphire%20Life%20-%20%20Lorenzo%20Guerra%20028%28JB_19384%29-C5XnJtWmNWvmDyMC87hXlMRE7y5lPA.jpg",
-  //   objectPosition: "center 35%",
-  // },
-  {
-    number: "—",
-    title: "QUIET MOMENTS",
-    subtitle: "Unhurried hours by the sea.",
-    image: "/quiet-moments.jpeg",
-    objectPosition: "center 30%",
   },
   {
     number: "05",
     title: "CONCIERGE COORDINATION",
     subtitle: "Complete discretion.",
     image: "/seasonal-gatherings.jpeg",
+    objectPosition: "center center",
+  },
+  {
+    number: "—",
+    title: "PENINSULA VILLAGE",
+    subtitle: "Home harbor on the Newport Peninsula.",
+    image: "/peninsula-village.jpeg",
     objectPosition: "center center",
   },
 ]

@@ -7,9 +7,10 @@ import { isBackForwardNavigation } from "@/lib/navigation"
 
 const partners = [
   { name: "American Lending Center", src: "/partners/american-lending-center.png", scale: 1 },
-  { name: "Freeman Marine Services", src: "/partners/freeman-marine-services.png", scale: 2.6 },
-  { name: "Sunstone", src: "/partners/sunstone.png", scale: 1 },
   { name: "American Sailing", src: "/partners/american-sailing.png", scale: 1.3 },
+  { name: "Freeman Marine Services", src: "/partners/freeman-marine-services.png", scale: 2.6 },
+  { name: "Lynn Marie The Artist", src: "/partners/lynn-marie.png", scale: 2.1 },
+  { name: "Sunstone", src: "/partners/sunstone.png", scale: 1 },
 ]
 
 function PartnerItem({ name, src, scale }: { name: string; src: string; scale: number }) {
@@ -102,9 +103,9 @@ export function Footer() {
             Our Partners
           </p>
 
-          {/* Static 4-up row — evenly distributed across full width */}
+          {/* Static 5-up row — evenly distributed across full width */}
           <div className="mx-auto max-w-[1400px] px-6 sm:px-8 lg:px-16">
-            <div className="grid grid-cols-2 md:grid-cols-4 items-center gap-y-10 gap-x-8 md:gap-x-10 lg:gap-x-12">
+            <div className="grid grid-cols-2 md:grid-cols-5 items-center gap-y-10 gap-x-6 md:gap-x-8 lg:gap-x-10">
               {partners.map((partner, index) => (
                 <PartnerItem
                   key={index}

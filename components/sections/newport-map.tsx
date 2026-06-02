@@ -51,7 +51,7 @@ function MapPanel() {
   return (
     <div ref={ref} className="bg-white">
       <div className="mx-auto max-w-[1500px] px-4 sm:px-6 md:px-10 lg:px-14 py-20 md:py-28 lg:py-36">
-        <div className="flex flex-col lg:flex-row lg:items-stretch gap-0 lg:gap-0 shadow-[0_1px_24px_rgba(25,41,82,0.06)]">
+        <div className="relative flex flex-col lg:flex-row lg:items-stretch gap-0 lg:gap-0 shadow-[0_1px_24px_rgba(25,41,82,0.06)]">
           {/* Map — dominant left/top */}
           <div
             className={`w-full lg:w-[68%] relative transition-all duration-[1.4s] ease-out ${
@@ -74,7 +74,7 @@ function MapPanel() {
 
           {/* Editorial sapphire panel — right on desktop, bottom on mobile */}
           <div
-            className={`w-full lg:w-[32%] bg-[#192952] text-white flex flex-col justify-center px-8 sm:px-12 md:px-16 lg:px-12 xl:px-16 py-14 lg:py-0 transition-all duration-[1.4s] ease-out delay-200 ${
+            className={`relative w-full lg:w-[32%] bg-[#192952] text-white flex flex-col justify-center px-8 sm:px-12 md:px-16 lg:px-12 xl:px-16 py-14 lg:py-0 transition-all duration-[1.4s] ease-out delay-200 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
             }`}
           >
@@ -108,6 +108,16 @@ function MapPanel() {
                 Pacific Ocean &mdash; Newport Harbor
               </p>
             </div>
+
+            {/* Embossed club seal — closing brand mark on sapphire panel */}
+            <Image
+              src="/wax-stamp.png"
+              alt="Sapphire Life Club seal"
+              width={160}
+              height={160}
+              aria-hidden
+              className="absolute bottom-8 right-8 md:bottom-10 md:right-10 lg:bottom-8 lg:right-8 xl:bottom-10 xl:right-10 w-[72px] sm:w-[84px] md:w-[96px] lg:w-[88px] xl:w-[104px] h-auto opacity-80 mix-blend-screen pointer-events-none select-none -rotate-[8deg]"
+            />
           </div>
         </div>
       </div>

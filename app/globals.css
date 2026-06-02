@@ -54,7 +54,7 @@
   --font-sans: var(--font-poppins), 'Poppins', ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-cormorant), 'Cormorant Garamond', ui-serif, Georgia, serif;
   --font-display: 'Ogg', 'Cormorant Garamond', ui-serif, Georgia, serif;
-  --font-signature: var(--font-dancing), 'Dancing Script', cursive;
+  --font-signature: var(--font-signature-script), 'Herr Von Muellerhoff', 'Snell Roundhand', 'Edwardian Script ITC', cursive;
   --font-mono: 'Geist Mono', 'Geist Mono Fallback';
   --color-background: var(--background);
   --color-foreground: var(--foreground);
