@@ -34,6 +34,11 @@ export const metadata: Metadata = {
     description: 'An exclusive private marine lifestyle club in Newport Beach, California.',
     type: 'website',
   },
+  icons: {
+    icon: '/wax-stamp.png',
+    shortcut: '/wax-stamp.png',
+    apple: '/wax-stamp.png',
+  },
 }
 
 export const viewport: Viewport = {

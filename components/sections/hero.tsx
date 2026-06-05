@@ -76,7 +76,6 @@ export function HeroSection() {
               if (p && typeof p.catch === "function") p.catch(() => {})
             }
           }}
-          poster="/hero-poster.jpg"
           className="block absolute inset-0 w-full h-full object-cover bg-[#192952] outline-none border-0"
         >
           <source src="/hero.mp4" type="video/mp4" />

@@ -79,7 +79,7 @@ export function TheStorySection() {
               width={160}
               height={160}
               aria-hidden
-              className="absolute bottom-8 right-8 sm:bottom-10 sm:right-10 md:bottom-12 md:right-12 lg:bottom-10 lg:right-8 xl:bottom-12 xl:right-12 w-[88px] sm:w-[104px] md:w-[120px] lg:w-[112px] xl:w-[128px] h-auto opacity-80 mix-blend-screen pointer-events-none select-none -rotate-[8deg]"
+              className="absolute bottom-8 right-8 sm:bottom-10 sm:right-10 md:bottom-12 md:right-12 lg:bottom-10 lg:right-8 xl:bottom-12 xl:right-12 w-[88px] sm:w-[104px] md:w-[120px] lg:w-[112px] xl:w-[128px] h-auto opacity-[0.92] [filter:grayscale(1)_brightness(2.7)] mix-blend-luminosity pointer-events-none select-none -rotate-[8deg]"
             />
 
             <div className="w-full px-8 sm:px-12 md:px-16 lg:px-14 xl:px-20 2xl:px-24 py-16 sm:py-20 md:py-24 lg:py-20 xl:py-24">

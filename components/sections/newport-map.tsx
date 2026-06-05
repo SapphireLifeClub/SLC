@@ -116,7 +116,7 @@ function MapPanel() {
               width={160}
               height={160}
               aria-hidden
-              className="absolute bottom-8 right-8 md:bottom-10 md:right-10 lg:bottom-8 lg:right-8 xl:bottom-10 xl:right-10 w-[72px] sm:w-[84px] md:w-[96px] lg:w-[88px] xl:w-[104px] h-auto opacity-80 mix-blend-screen pointer-events-none select-none -rotate-[8deg]"
+              className="absolute bottom-8 right-8 md:bottom-10 md:right-10 lg:bottom-8 lg:right-8 xl:bottom-10 xl:right-10 w-[72px] sm:w-[84px] md:w-[96px] lg:w-[88px] xl:w-[104px] h-auto opacity-[0.92] [filter:grayscale(1)_brightness(2.7)] mix-blend-luminosity pointer-events-none select-none -rotate-[8deg]"
             />
           </div>
         </div>

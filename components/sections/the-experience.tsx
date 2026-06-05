@@ -162,7 +162,6 @@ function ExperienceModule({ experience }: { experience: typeof experiences[0] })
             // @ts-ignore - non-standard but required for some Android browsers
             x5-playsinline="true"
             disablePictureInPicture
-            poster={experience.image}
             onLoadedMetadata={(e) => {
               const v = e.currentTarget
               v.muted = true
